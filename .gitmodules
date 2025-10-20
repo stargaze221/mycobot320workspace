@@ -4,3 +4,6 @@
 [submodule "isaac_ros-dev/src/isaac_ros_nvblox"]
 	path = isaac_ros-dev/src/isaac_ros_nvblox
 	url = https://github.com/stargaze221/isaac_ros_nvblox.git
+[submodule "isaac_ros-dev/src/mycobot_ros2"]
+	path = isaac_ros-dev/src/mycobot_ros2
+	url = https://github.com/stargaze221/mycobot_ros2.git
