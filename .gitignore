@@ -4,3 +4,5 @@ isaac_ros-dev/log
 isaac_ros-dev/isaac_ros_assets
 
 *.json
+*.pyc
+__pycache__/
