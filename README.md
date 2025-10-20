@@ -1,174 +1,108 @@
-Here’s a clean, professional revision of your `README.md` that integrates both your original ROS workspace notes and your new **Pinocchio + Crocoddyl research plan**, while keeping it organized and markdown-ready for your GitHub repository:
+Perfect timing ✅ — let’s create a **top-level `README.md`** that introduces your project clearly and connects all supporting documents in your repo (e.g., `Dependency.md`, `UdevRules.md`, `HardwareSetup.md`, etc.).
+
+Here’s a polished draft you can drop into your repository root:
 
 ---
 
-````markdown
-# 🦾 mycobot320workspace
+# 🤖 MyCobotProject Documentation
 
-This workspace integrates **MyCobot 320** with **ROS 2 Humble**, **Isaac ROS NVBlox**, and a lightweight **optimal control and planning stack** using **Pinocchio + Crocoddyl**.
+### Intelligent Robotics with Low-Cost Hardware
 
----
-
-## ⚙️ Environment Setup
-
-### Add to `~/.bashrc`
-```bash
-export ISAAC_ROS_WS=${HOME}/mycobot320workspace/isaac_ros-dev/
-alias isaacrosdev='cd ${ISAAC_ROS_WS}/src/isaac_ros_common && ./scripts/run_dev.sh'
-````
-
-### Submodules
-
-This repository uses the following submodules:
-
-* `isaac_ros_common`
-* `isaac_ros_nvblox`
-
-Initialize them with:
-
-```bash
-git submodule update --init --recursive
-```
+**Using ML, Computation, and Sensing to Overcome Mechanical Limitations**
 
 ---
 
-## 🐳 Dockerfile and Dependencies
+## 🌍 Motivation
 
-A custom `Dockerfile.zed` has been added for ZED SDK + ROS integration.
-It now includes `rosdep install` support for ROS image builds.
+Affordable robots such as **MyCobot 320**, entry-level manipulators, or small mobile platforms often suffer from:
 
----
+* Noisy or low-resolution encoders
+* Weak actuators and backlash
+* Uncertain kinematics and dynamics
+* Lack of precise calibration
 
-## 🎥 Running ZED and NVBlox
-
-### ZED 2i Camera Wrapper
-
-```bash
-ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i
-```
-
-### ZED + NVBlox Example
-
-```bash
-ros2 launch nvblox_examples_bringup zed_example.launch.py camera:=zed2
-```
+Instead of upgrading the mechanics, we **close the precision gap through intelligence** — combining computation, sensing, and learning inside a unified **ROS 2** ecosystem.
 
 ---
 
-## 🧩 Transition Plan — From MoveIt 2 to Pinocchio + Crocoddyl
+## 🧠 Research Background and Approach
 
-Instead of relying on **MoveIt 2**, this workspace will evolve toward a **research-grade, uncertainty-aware control framework** using:
+This repository explores a complete stack for intelligent calibration and control:
 
-* **Pinocchio** → Fast rigid-body kinematics/dynamics
-* **Crocoddyl** → Optimal control & trajectory optimization
-* **Custom nodes** → For uncertainty reasoning, belief updates, and adaptive control
+| Module                               | Description                                                                                       |
+| :----------------------------------- | :------------------------------------------------------------------------------------------------ |
+| **System Identification + Learning** | Use data-driven models (DNNs / GPs) to approximate uncertain robot dynamics.                      |
+| **State Estimation**                 | Integrate cameras (RealSense, ZED 2i) and tactile feedback for landmark-based particle filtering. |
+| **Planning under Uncertainty**       | Use Crocoddyl + Pinocchio for trajectory optimization and POMDP-inspired adaptation.              |
+| **Human-Robot Interaction**          | Provide tactile and visual interfaces such as Braille map output and MeshCat visualization.       |
+
+Our goal is to **demonstrate how software intelligence compensates for mechanical limitations** — yielding precise motion, adaptive behavior, and safe operation even with low-cost hardware.
 
 ---
 
-## 🧠 Conceptual Architecture
+## 📦 Repository Structure
 
-```
-ROS 2 Graph
+```text
+MyCobotProject/
 │
-├── /state_estimator_node        → publishes x̂ , Σ  (state + uncertainty)
-├── /belief_planner_node         → chooses goal / subgoal based on uncertainty
-├── /trajectory_optimizer_node   → runs Crocoddyl (uses Pinocchio dynamics)
-├── /controller_node             → tracks Crocoddyl trajectory
-└── /mycobot_interface_node      → converts control signals to pymycobot cmds
+├── README.md                  ← Main overview (this file)
+├── docs/
+│   ├── Dependency.md           # Required packages, Python & ROS 2 setup
+│   ├── UdevRules.md            # USB permission rules for cameras & robots
+│   ├── HardwareSetup.md        # MyCobot 320, sensors, and connection guide
+│   ├── SoftwareArchitecture.md # ROS 2 graph, nodes, and launch configuration
+│   ├── Troubleshooting.md      # Common setup and runtime issues
+│   └── Experiments.md          # Example demos and expected results
+│
+└── src/
+    ├── mycobot_interface/
+    ├── belief_planner/
+    ├── trajectory_optimizer/
+    └── controller_node/
 ```
 
 ---
 
-## 🛠 Installation (Ubuntu 22.04 + ROS 2 Humble)
+## ⚙️ Expected Output
 
-```bash
-sudo apt install -y build-essential cmake git python3-colcon-common-extensions \
-                    python3-pip libeigen3-dev libboost-all-dev
-pip install numpy scipy matplotlib ipython jupyter
+After completing setup:
 
-# Pinocchio
-pip install pin==2.9.2  # PyPI package name: 'pin'
-
-# Crocoddyl
-pip install crocoddyl
-```
+* ✅ MyCobot 320 operates under closed-loop motion control
+* ✅ Sensors stream data through ROS 2 topics (camera, IMU, encoders)
+* ✅ NVBlox + SLAM reconstruct a 3D scene and occupancy map
+* ✅ Pinocchio + Crocoddyl visualize optimal trajectories in MeshCat
+* ✅ Optional tactile output (Braille display) provides environmental awareness
 
 ---
 
-## 🧮 Minimal Python Example
+## 📚 Documentation Links
 
-```python
-import numpy as np
-import pinocchio as pin
-import crocoddyl
-from pinocchio.utils import zero
+| Topic                         | File                                                           |
+| :---------------------------- | :------------------------------------------------------------- |
+| 🔧 Dependencies & Build Setup | [`docs/Dependency.md`](docs/Dependency.md)                     |
+| 🔌 UDEV Rules & Serial Access | [`docs/UdevRules.md`](docs/UdevRules.md)                       |
+| ⚙️ Hardware Configuration     | [`docs/HardwareSetup.md`](docs/HardwareSetup.md)               |
+| 🧩 Software Architecture      | [`docs/SoftwareArchitecture.md`](docs/SoftwareArchitecture.md) |
+| 🧪 Example Experiments        | [`docs/Experiments.md`](docs/Experiments.md)                   |
+| 🩺 Troubleshooting Guide      | [`docs/Troubleshooting.md`](docs/Troubleshooting.md)           |
+| 🧠 Simulation & Optimization | [docs/SimulationAndOptimization.md](docs/SimulationAndOptimization.md) |
+| 🧠 Conceptual Overview | [docs/ConceptOverview.md](docs/ConceptOverview.md) |
 
-# Load model
-model_path = "/path/to/mycobot_description"
-urdf_path  = model_path + "/urdf/mycobot.urdf"
-robot = pin.RobotWrapper.BuildFromURDF(urdf_path, model_path)
-
-# Simple reaching task
-model = crocoddyl.ActionModelLQR(robot.model.nq, robot.model.nv)
-ddp   = crocoddyl.SolverDDP(model)
-
-x0 = np.zeros(model.ndx)
-us_init = [np.zeros(model.nu)] * 20
-ddp.solve(x0, us_init, 100)
-print("Final state:", ddp.xs[-1])
-```
-
-You can later replace the `ActionModelLQR` with a **Pinocchio-based dynamics model** and custom **cost models** (e.g., tracking goals, minimizing torque, or penalizing uncertainty).
 
 ---
 
-## 🔬 Research Extensions
+## 📈 Future Work
 
-| Goal                          | Extension Path                                                              |
-| ----------------------------- | --------------------------------------------------------------------------- |
-| **Adaptive control**          | Update dynamics or cost terms from online identification.                   |
-| **Uncertainty-aware control** | Add covariance or information gain terms to Crocoddyl’s cost.               |
-| **Model-based RL**            | Wrap Crocoddyl inside a learning loop to optimize cost weights.             |
-| **Real robot execution**      | Feed optimized joint/torque trajectories to a ROS 2 node using `pymycobot`. |
-
----
-
-## 📂 Suggested Repository Structure
-
-```
-mycobot_optimal_control/
-├── CMakeLists.txt
-├── package.xml
-├── launch/
-│   └── crocoddyl_demo.launch.py
-├── src/
-│   ├── mycobot_interface_node.py
-│   ├── trajectory_optimizer_node.py
-│   ├── controller_node.py
-│   └── utils/
-│       ├── pinocchio_model.py
-│       └── cost_models.py
-└── urdf/
-    └── mycobot.urdf
-```
-
----
-
-## 🚀 Next Steps
-
-1. ✅ Start with a simple **reach-to-pose demo** using Pinocchio + Crocoddyl (simulation only).
-2. 🔄 Add your **ROS 2 interface node** to execute trajectories on the real MyCobot.
-3. 🧮 Extend to **uncertainty-aware or adaptive** optimal control.
-4. 🧠 Integrate with **Bayesian planners** for belief-based exploration.
+* Integrate adaptive control with uncertainty-aware exploration
+* Combine Crocoddyl and Bayesian planning for risk-sensitive motion
+* Expand tactile HRI for the **TAP-IN** (Tactile Access to Perception through Intelligent Navigation) project
 
 ---
 
 **Author:** Daniel Hyung-Jin Yoon
-*Tennessee Technological University — Robotics and Autonomous Systems Lab*
-
-```
+**Affiliation:** Tennessee Tech University — Intelligent Robotics Lab
+**License:** Apache 2.0
 
 ---
 
-Would you like me to add a small section on **Docker usage for Pinocchio + Crocoddyl** (so it runs inside your `Dockerfile.zed` container as well)? That would make the workspace self-contained and reproducible.
-```
+Would you like me to generate the companion markdown stubs (`Dependency.md`, `UdevRules.md`, `HardwareSetup.md`, etc.) next — each with a minimal structure and TODO placeholders so you can fill them in gradually?
