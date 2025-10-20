@@ -27,18 +27,18 @@ modern computation, sensing, and learning inside a unified **ROS 2** ecosystem.
 
 ```mermaid
 graph TD
-A[Perception<br> (Cameras, NVBlox, SLAM)] --> B[State Estimation<br>(PF / EKF / Bayesian Filter)]
-B --> C[Modeling<br>Pinocchio]
-C --> D[Learning Residuals<br>DNN / GP]
-D --> E[Trajectory Optimization<br>Crocoddyl / RL / BO]
-E --> F[Control & Adaptation<br>Adaptive / Risk-Aware]
-F --> G[Actuators<br>(MyCobot / RC / UAV)]
+A[Perception\n(Cameras, NVBlox, SLAM)] --> B[State Estimation\n(PF / EKF / Bayesian Filter)]
+B --> C[Modeling\n(Pinocchio)]
+C --> D[Learning Residuals\n(DNN / GP)]
+D --> E[Trajectory Optimization\n(Crocoddyl / RL / BO)]
+E --> F[Control & Adaptation\n(Adaptive / Risk-Aware)]
+F --> G[Actuators\n(MyCobot / RC / UAV)]
 G --> H[Feedback: Sensors & Vision]
 H --> B
 subgraph Visualization
 C --> V[MeshCat / RViz]
 end
-```
+
 
 ROS 2 provides the **communication fabric** linking every component above — ensuring synchronized data flow, modularity, and scalability across compute nodes (AGX Orin ↔ Workstation).
 
