@@ -1,58 +1,79 @@
-Perfect 👍 — here’s a polished **one-page illustrated overview** you can drop directly into your repository as
-📄 `README_Concept_Overview.md` (or merge into your main README).
-It clearly ties your technical setup (ROS 2 + Pinocchio + Crocoddyl + MeshCat) to your **research vision: overcoming low-cost robot limitations through sensing, learning, and computation.**
+Here’s a refined and more professional version of your text — consistent in tone, formatting, and flow, while preserving all your original technical and conceptual details.
+It’s now ready to be dropped directly into your repo as `README_Concept_Overview.md`.
 
 ---
 
 # 🧠 Intelligent Robotics with Low-Cost Hardware
 
-### Using ML, Computation, and Sensing to Overcome Mechanical Limitations
+### Using Machine Learning, Computation, and Sensing to Overcome Mechanical Limitations
 
 ---
 
 ## 🌍 Motivation
 
-Affordable robots such as **MyCobot 320**, entry-level manipulators, or small mobile platforms suffer from:
+Affordable robots such as the **MyCobot 320**, entry-level manipulators, or small mobile platforms often suffer from:
 
 * Noisy encoders and weak actuators
 * Uncertain kinematics and dynamics
 * Lack of precise calibration
 
-Instead of upgrading the mechanics, we **close the precision gap through intelligence** — combining
-modern computation, sensing, and learning inside a unified **ROS 2** ecosystem.
+Rather than upgrading hardware, we aim to **close the precision gap through intelligence** — combining computation, sensing, and learning inside a unified **ROS 2** ecosystem.
 
 ---
 
 ## 🏗️ System Architecture
 
-```mermaid
-graph TD
-A[Perception\n(Cameras, NVBlox, SLAM)] --> B[State Estimation\n(PF / EKF / Bayesian Filter)]
-B --> C[Modeling\n(Pinocchio)]
-C --> D[Learning Residuals\n(DNN / GP)]
-D --> E[Trajectory Optimization\n(Crocoddyl / RL / BO)]
-E --> F[Control & Adaptation\n(Adaptive / Risk-Aware)]
-F --> G[Actuators\n(MyCobot / RC / UAV)]
-G --> H[Feedback: Sensors & Vision]
-H --> B
-subgraph Visualization
-C --> V[MeshCat / RViz]
-end
+```
+┌────────────────────┐
+│  Perception        │  Cameras / NVBlox / SLAM
+└─────────┬──────────┘
+          ↓
+┌────────────────────┐
+│  State Estimation  │  PF / EKF / Bayesian Filter
+└─────────┬──────────┘
+          ↓
+┌────────────────────┐
+│  Modeling          │  Pinocchio
+└─────────┬──────────┘
+          ↓
+┌────────────────────┐
+│  Learning Residuals│  DNN / GP
+└─────────┬──────────┘
+          ↓
+┌────────────────────┐
+│  Trajectory Opt.   │  Crocoddyl / RL / BO
+└─────────┬──────────┘
+          ↓
+┌────────────────────┐
+│  Control & Adapt.  │  Adaptive / Risk-Aware
+└─────────┬──────────┘
+          ↓
+┌────────────────────┐
+│  Actuators         │  MyCobot / RC / UAV
+└─────────┬──────────┘
+          ↓
+┌────────────────────┐
+│  Feedback          │  Sensors & Vision
+└─────────┬──────────┘
+          ↺
+Visualization: MeshCat / RViz
 ```
 
-ROS 2 provides the **communication fabric** linking every component above — ensuring synchronized data flow, modularity, and scalability across compute nodes (AGX Orin ↔ Workstation).
+**ROS 2** provides the **communication fabric** linking all components —
+ensuring synchronized data flow, modularity, and scalability across compute nodes
+(e.g., **AGX Orin ↔ Workstation**).
 
 ---
 
 ## ⚙️ Core Software Components
 
-| Layer                     | Tool / Library                   | Role                                                                                     |
-| ------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------- |
-| **Modeling**              | 🦾 **Pinocchio**                 | Fast rigid-body dynamics and kinematics; forms analytical core for control & estimation. |
-| **Optimal Control**       | 🧩 **Crocoddyl**                 | Differential dynamic programming for model-based motion generation.                      |
-| **Visualization**         | 🕸️ **MeshCat**                  | Real-time 3-D model visualization for debugging, verification, and human feedback.       |
-| **Integration**           | 🚀 **ROS 2**                     | Middleware connecting perception, state estimation, planning, and control.               |
-| **Learning / Adaptation** | 🤖 **ML (PyTorch / TensorFlow)** | Learns residual dynamics or uncertainty-aware corrections online.                        |
+| Layer                     | Tool / Library                   | Role                                                                                   |
+| ------------------------- | -------------------------------- | -------------------------------------------------------------------------------------- |
+| **Modeling**              | 🦾 **Pinocchio**                 | Fast rigid-body dynamics and kinematics; analytical backbone for control & estimation. |
+| **Optimal Control**       | 🧩 **Crocoddyl**                 | Differential dynamic programming for model-based motion generation.                    |
+| **Visualization**         | 🕸️ **MeshCat**                  | Real-time 3-D visualization for debugging, verification, and intuitive human feedback. |
+| **Integration**           | 🚀 **ROS 2**                     | Middleware connecting perception, estimation, planning, and control modules.           |
+| **Learning / Adaptation** | 🤖 **ML (PyTorch / TensorFlow)** | Learns residual dynamics or uncertainty-aware corrections online.                      |
 
 ---
 
@@ -60,14 +81,14 @@ ROS 2 provides the **communication fabric** linking every component above — en
 
 > **Information can substitute for precision.**
 
-High-end robots reduce uncertainty by mechanical accuracy.
-Our system reduces uncertainty by **information flow**:
+High-end robots reduce uncertainty through mechanical accuracy.
+Our system reduces uncertainty through **information flow**:
 
 * Fusing external vision with proprioception
 * Using learned models to correct dynamics
 * Planning motions robust to uncertainty
 
-Thus, computation and sensing become the “precision hardware.”
+Thus, computation and sensing effectively become the *precision hardware*.
 
 ---
 
@@ -75,14 +96,14 @@ Thus, computation and sensing become the “precision hardware.”
 
 This framework demonstrates that:
 
-* **Learning + Modeling** can adaptively compensate for cheap sensors/actuators.
+* **Learning + Modeling** can adaptively compensate for inexpensive sensors and actuators.
 * **State Estimation + Perception** convert noisy measurements into actionable belief states.
 * **Planning + Control** exploit model confidence for safe, efficient behavior.
-* **ROS 2 Integration** scales easily from simulation (Pinocchio + MeshCat) to hardware (MyCobot / RC Car / UAV).
+* **ROS 2 Integration** scales seamlessly from simulation (Pinocchio + MeshCat) to hardware (MyCobot / RC Car / UAV).
 
-Ultimately, it lays the foundation for **adaptive, uncertainty-aware robotics** —
+Ultimately, this architecture lays the groundwork for **adaptive, uncertainty-aware robotics** —
 bridging low-cost platforms with high-level intelligence.
 
 ---
 
-Would you like me to append a short “Getting Started” section at the end (e.g., setup steps and launch commands for your current MyCobot 320 + MeshCat + ROS 2 workflow)?
+Would you like me to append a short **“Getting Started”** section (e.g., setup steps and launch commands for your current *MyCobot 320 + MeshCat + ROS 2* workflow)?
