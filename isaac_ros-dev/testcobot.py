@@ -69,6 +69,19 @@ angles = mc.get_angles()
 print("Angles now:", angles)
 
 # ------------------------------------------------------
+# Example: Move each joint to a desired angle
+# ------------------------------------------------------
+print("\nMove each joint to a desired angle ...")
+# Angles are in degrees (not radians)
+target_angles = [30, 0, 0, 0, 0, 45]
+mc.send_angles(target_angles, 30)  # second arg = speed (0–100)
+time.sleep(5)
+
+angles = mc.get_angles()
+print("Angles now:", angles)
+
+
+# ------------------------------------------------------
 # Gripper Torque + Motion Test
 # ------------------------------------------------------
 print("\n=== Testing Pro Gripper Torque Limit ===")
