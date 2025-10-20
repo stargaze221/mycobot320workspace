@@ -38,7 +38,7 @@ H --> B
 subgraph Visualization
 C --> V[MeshCat / RViz]
 end
-
+```
 
 ROS 2 provides the **communication fabric** linking every component above — ensuring synchronized data flow, modularity, and scalability across compute nodes (AGX Orin ↔ Workstation).
 
