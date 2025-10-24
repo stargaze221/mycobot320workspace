@@ -1,8 +1,10 @@
-Absolutely — here’s a concise yet complete **progress summary** of everything you’ve done so far setting up **Pinocchio + MeshCat + Crocoddyl** in your **Isaac ROS container on AGX Orin** 👇
+Excellent — since you’ve successfully installed **Pinocchio + MeshCat + CasADi** (not Crocoddyl), let’s update that markdown to accurately reflect your current setup on the **Isaac ROS container (Jetson AGX Orin)**.
+
+Here’s the revised and cleaned-up version 👇
 
 ---
 
-# 🧩 Pinocchio + MeshCat + Crocoddyl Setup Summary
+# 🧩 Pinocchio + MeshCat + CasADi Setup Summary
 
 *(Isaac ROS Container on Jetson AGX Orin)*
 
@@ -12,21 +14,22 @@ Absolutely — here’s a concise yet complete **progress summary** of everythin
 sudo apt update
 sudo apt install ros-humble-pinocchio   # C++ + Python bindings prebuilt for ARM64
 pip install meshcat                     # lightweight 3D visualization backend
-pip install crocoddyl                   # optimal control library (auto-links to Pinocchio)
+pip install casadi                      # symbolic / numeric optimization library
+pip install "numpy<2"                   # ensure compatibility with ROS-Humble Pinocchio
 ```
 
 ✅ **Result:**
 
 * `import pinocchio` works
 * `import meshcat` works
-* `import crocoddyl` works
-* Compatible with ROS 2 Humble under `/opt/ros/humble`
+* `import casadi` works
+* All modules compatible with ROS 2 Humble under `/opt/ros/humble`
 
 ---
 
 ## 2️⃣ Verify MeshCat visualization
 
-Start the server manually:
+Start the viewer server manually:
 
 ```bash
 python3 -m meshcat.servers.zmqserver &
@@ -35,17 +38,17 @@ python3 -m meshcat.servers.zmqserver &
 Expected console output:
 
 ```
-znq_url=tcp://127.0.0.1:6000
+zmq_url=tcp://127.0.0.1:6000
 web_url=http://127.0.0.1:7000/static/
 ```
 
 Then open the viewer at
 👉 **[http://127.0.0.1:7000/static/](http://127.0.0.1:7000/static/)**
 
-(If headless, forward the port:
+(If headless, forward the port with:
 `ssh -L 7000:127.0.0.1:7000 admin@<AGX_IP>`)
 
-✅ You confirmed the grid and 3D scene appeared in your browser.
+✅ Confirmed: the MeshCat grid and 3-D scene appear in your browser.
 
 ---
 
@@ -58,17 +61,13 @@ viz["axes"].set_object(meshcat.geometry.triad(scale=0.2))
 print("Connected to:", viz.url())
 ```
 
-✅ Verified: the triad axes appear in the viewer.
+✅ Verified — the triad axes appear in the viewer.
 
 ---
 
 ## 4️⃣ Prepare MyCobot 320 URDF for Pinocchio
 
-You inspected a `firefighter.urdf` file describing **MyCobot 320 M5 + gripper**.
-✔️ Standard URDF, compatible with Pinocchio
-⚠️ `package://mycobot_description/...` paths must be resolved to absolute directories.
-
-Clone the official description:
+Clone the official URDF description:
 
 ```bash
 cd ${ISAAC_ROS_WS}/src
@@ -78,8 +77,10 @@ git clone https://github.com/elephantrobotics/mycobot_ros.git
 URDF path example:
 
 ```
-mycobot_ros/mycobot_description/urdf/mycobot_320_m5_2022/
+mycobot_ros/mycobot_description/urdf/mycobot_320_m5_2022/mycobot_320.urdf
 ```
+
+⚠️ `package://mycobot_description/...` paths must be resolved to absolute directories.
 
 ---
 
@@ -101,16 +102,18 @@ viz.loadViewerModel()
 viz.display(pin.neutral(model))
 ```
 
-✅ Opens directly in your existing MeshCat viewer.
+✅ Robot loads directly into your active MeshCat viewer.
 
 ---
 
 ## 6️⃣ Next steps (recommended)
 
-* Use `pin.computeJointPlacement()` or `pin.forwardKinematics()` to test kinematics.
-* Add `crocoddyl` for trajectory optimization and control simulation.
-* Optionally, integrate with ROS 2 by publishing joint states to `/joint_states` while visualizing in MeshCat.
+* Use `pin.forwardKinematics()` and `pin.updateFramePlacements()` to verify end-effector poses.
+* Leverage **CasADi** to solve inverse kinematics or trajectory optimization problems.
+* Publish joint states to `/joint_states` while displaying motion in MeshCat.
+* Integrate with Isaac ROS for perception-driven motion planning experiments.
 
 ---
 
-Would you like me to export this summary as a ready-to-upload **`README_Mycobot_Pinocchio.md`** file (so you can drop it into your repo)?
+Would you like me to format this as a complete file and export it as
+`README_Mycobot_Pinocchio.md` so you can drop it directly into your repo?
